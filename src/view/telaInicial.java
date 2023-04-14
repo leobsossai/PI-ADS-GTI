@@ -30,7 +30,7 @@ public class telaInicial extends javax.swing.JFrame {
         cadastrar = new javax.swing.JMenu();
         contaPagar = new javax.swing.JMenuItem();
         contaReceber = new javax.swing.JMenuItem();
-        consulta = new javax.swing.JMenu();
+        btnConsulta = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,8 +54,13 @@ public class telaInicial extends javax.swing.JFrame {
 
         jMenuBar1.add(cadastrar);
 
-        consulta.setText("Consulta");
-        jMenuBar1.add(consulta);
+        btnConsulta.setText("Consulta");
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(btnConsulta);
 
         setJMenuBar(jMenuBar1);
 
@@ -67,7 +72,7 @@ public class telaInicial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         pack();
@@ -84,6 +89,12 @@ public class telaInicial extends javax.swing.JFrame {
         cadastroReceber frame = new cadastroReceber();
         frame.setVisible(true);
     }//GEN-LAST:event_contaReceberActionPerformed
+
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        // TODO add your handling code here:
+        consulta frame = new consulta();
+        frame.setVisible(true);
+    }//GEN-LAST:event_btnConsultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,8 +132,8 @@ public class telaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu btnConsulta;
     private javax.swing.JMenu cadastrar;
-    private javax.swing.JMenu consulta;
     private javax.swing.JMenuItem contaPagar;
     private javax.swing.JMenuItem contaReceber;
     private javax.swing.JMenuBar jMenuBar1;
