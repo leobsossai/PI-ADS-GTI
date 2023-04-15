@@ -5,9 +5,11 @@
 package DAO;
 
 import factory.ConnectionFactory;
+import java.util.List;
 import model.ContaPagar;
 import java.sql.*;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 /**
  *
@@ -51,23 +53,27 @@ public class ContaPagarDAO {
         }
     }
     
-    public ContaPagar getPagar(int id){
-        String sql = "SELECT * FROM contaPagar WHERE id = ?";
+    public List<ContaPagar> getPagar(String recorrencia){
+        String sql = "SELECT * FROM contaPagar WHERE recorrencia = ? ORDER BY data_pagamento ASC";
         try {
-            PreparedStatement stmt =  this.connection.prepareStatement(sql);
-            stmt.setInt(1, id);
+            PreparedStatement stmt =  this.connection.prepareStatement
+        (sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            stmt.setString(1,recorrencia);
             ResultSet rs = stmt.executeQuery();
-            ContaPagar pagar = new ContaPagar();
-            // Primeiramente, posicionando o ResultSet na primeira posição
-            rs.first();
-            pagar.setIdentificacao_da_conta(rs.getString("identificacao_da_conta"));
-            pagar.setValor(rs.getFloat("valor"));
-            pagar.setTipo_de_conta(rs.getString("tipo_de_conta"));
-            pagar.setFornecedor_ou_beneficiario(rs.getString("fornecedor_ou_beneficiario"));
-            pagar.setData_pagamento(rs.getString("data_pagamento"));
-            pagar.setRecorrencia(rs.getString("recorrencia"));
-            return pagar;
+            List<ContaPagar> pagamentos = new ArrayList<>();
+            while (rs.next()) {
+                ContaPagar pagar = new ContaPagar();    
+                pagar.setIdentificacao_da_conta(rs.getString("identificacao_da_conta"));
+                pagar.setValor(rs.getFloat("valor"));
+                pagar.setTipo_de_conta(rs.getString("tipo_de_conta"));
+                pagar.setFornecedor_ou_beneficiario(rs.getString("fornecedor_ou_beneficiario"));
+                pagar.setData_pagamento(rs.getString("data_pagamento"));
+                //pagar.setRecorrencia(rs.getString("recorrencia"));
+                pagamentos.add(pagar);
+            }
+            return pagamentos;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }

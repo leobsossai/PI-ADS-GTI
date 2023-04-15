@@ -4,22 +4,22 @@
  */
 package view;
 
-import DAO.ContaPagarDAO;
+import DAO.ContaReceberDAO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import model.ContaPagar;
+import model.ContaReceber;
 
 /**
  *
  * @author ls
  */
-public class consulta extends javax.swing.JFrame {
+public class consultaReceber extends javax.swing.JFrame {
 
     /**
      * Creates new form consulta
      */
-    public consulta() {
+    public consultaReceber() {
         initComponents();
     }
 
@@ -55,7 +55,7 @@ public class consulta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        jLabel1.setText("CONSULTA - Conta a pagar");
+        jLabel1.setText("CONSULTA - Conta a receber");
 
         jLabel3.setText("Recorrencia");
 
@@ -65,7 +65,7 @@ public class consulta extends javax.swing.JFrame {
 
         pagarTipo.setText("Tipo de conta");
 
-        pagarBeneficiario.setText("Beneficiário / Fornecedor");
+        pagarBeneficiario.setText("Pagador");
 
         pagarData.setText("Data pagamento");
 
@@ -94,37 +94,41 @@ public class consulta extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(187, 187, 187)
+                    .addComponent(pagarValor)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pagarData)
+                    .addGap(27, 27, 27)
+                    .addComponent(pagarBeneficiario)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(140, 140, 140)
+                    .addComponent(jLabel1)))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(pagarNome)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(pagarValor)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(pagarData)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(pagarBeneficiario))
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(pagarNome)
                                 .addGap(18, 18, 18))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(85, 85, 85)
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(selecRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(39, 39, 39)
                                 .addComponent(valorToString)
                                 .addGap(88, 88, 88)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(98, 98, 98)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnConsulta)
-                            .addComponent(pagarTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 36, Short.MAX_VALUE))
+                            .addComponent(pagarTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 34, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -167,13 +171,13 @@ public class consulta extends javax.swing.JFrame {
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         // TODO add your handling code here:
         String recorrenciaPesquisa = selecRec.getSelectedItem().toString();
-        ContaPagarDAO consultaPagarDAO = new ContaPagarDAO();
-        List<ContaPagar> consultaPagar = consultaPagarDAO.getPagar(recorrenciaPesquisa);
-        if(consultaPagar.isEmpty()){
+        ContaReceberDAO consultaReceberDAO = new ContaReceberDAO();
+        List<ContaReceber> consultaReceber = consultaReceberDAO.getReceber(recorrenciaPesquisa);
+        if(consultaReceber.isEmpty()){
             JOptionPane.showMessageDialog(this,"Não há contas para o período!");
         } else {
-            for (ContaPagar pagar : consultaPagar) {
-        consultaText.append(pagar.getIdentificacao_da_conta() + "\t\t" + pagar.getValor() + "\t" + pagar.getData_pagamento() + "\t" + pagar.getFornecedor_ou_beneficiario() + "\t\t" + pagar.getTipo_de_conta() + "\n");
+            for (ContaReceber receber : consultaReceber) {
+        consultaText.append(receber.getIdentificacao_da_conta() + "\t\t" + receber.getValor() + "\t" + receber.getData_pagamento() + "\t" + receber.getPagador() + "\t\t" + receber.getTipo_de_conta() + "\n");
             }
         }
     }//GEN-LAST:event_btnConsultaActionPerformed
@@ -201,20 +205,21 @@ public class consulta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(consulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(consulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(consulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(consulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new consulta().setVisible(true);
+                new consultaReceber().setVisible(true);
             }
         });
     }

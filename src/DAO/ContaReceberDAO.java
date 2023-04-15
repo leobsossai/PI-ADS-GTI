@@ -8,6 +8,8 @@ import factory.ConnectionFactory;
 import model.ContaReceber;
 import java.sql.*;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author ls
@@ -43,6 +45,31 @@ public class ContaReceberDAO {
         }
         catch(SQLException u) {
             throw new RuntimeException(u);
+        }
+    }
+    
+    public List<ContaReceber> getReceber(String recorrencia){
+        String sql = "SELECT * FROM contaReceber WHERE recorrencia = ? ORDER BY data_pagamento ASC";
+        try {
+            PreparedStatement stmt =  this.connection.prepareStatement
+        (sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            stmt.setString(1,recorrencia);
+            ResultSet rs = stmt.executeQuery();
+            List<ContaReceber> pagamentos = new ArrayList<>();
+            while (rs.next()) {
+                ContaReceber receber = new ContaReceber();    
+                receber.setIdentificacao_da_conta(rs.getString("identificacao_da_conta"));
+                receber.setValor(rs.getFloat("valor"));
+                receber.setTipo_de_conta(rs.getString("tipo_de_conta"));
+                receber.setPagador(rs.getString("pagador"));
+                receber.setData_pagamento(rs.getString("data_pagamento"));
+                //pagar.setRecorrencia(rs.getString("recorrencia"));
+                pagamentos.add(receber);
+            }
+            return pagamentos;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }

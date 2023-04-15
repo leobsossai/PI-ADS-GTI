@@ -31,6 +31,8 @@ public class telaInicial extends javax.swing.JFrame {
         contaPagar = new javax.swing.JMenuItem();
         contaReceber = new javax.swing.JMenuItem();
         btnConsulta = new javax.swing.JMenu();
+        consultaPagar = new javax.swing.JMenuItem();
+        consultaReceber = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +62,23 @@ public class telaInicial extends javax.swing.JFrame {
                 btnConsultaActionPerformed(evt);
             }
         });
+
+        consultaPagar.setText("Conta a pagar");
+        consultaPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultaPagarActionPerformed(evt);
+            }
+        });
+        btnConsulta.add(consultaPagar);
+
+        consultaReceber.setText("Conta a receber");
+        consultaReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultaReceberActionPerformed(evt);
+            }
+        });
+        btnConsulta.add(consultaReceber);
+
         jMenuBar1.add(btnConsulta);
 
         setJMenuBar(jMenuBar1);
@@ -92,9 +111,20 @@ public class telaInicial extends javax.swing.JFrame {
 
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnConsultaActionPerformed
+
+    private void consultaPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaPagarActionPerformed
+        // TODO add your handling code here:
         consulta frame = new consulta();
         frame.setVisible(true);
-    }//GEN-LAST:event_btnConsultaActionPerformed
+    }//GEN-LAST:event_consultaPagarActionPerformed
+
+    private void consultaReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaReceberActionPerformed
+        // TODO add your handling code here:
+        consultaReceber frame = new consultaReceber();
+        frame.setVisible(true);
+    }//GEN-LAST:event_consultaReceberActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,6 +164,8 @@ public class telaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu btnConsulta;
     private javax.swing.JMenu cadastrar;
+    private javax.swing.JMenuItem consultaPagar;
+    private javax.swing.JMenuItem consultaReceber;
     private javax.swing.JMenuItem contaPagar;
     private javax.swing.JMenuItem contaReceber;
     private javax.swing.JMenuBar jMenuBar1;
